@@ -1,8 +1,8 @@
-# EntityFrameworkDemo
+## EntityFrameworkDemo
 
 EntityFramework Database First Demo
 
-## TODO LIST
+### TODO LIST
 - [x] 新增
 - [x] 简单查询
 - [x] 延迟查询
@@ -12,3 +12,7 @@ EntityFramework Database First Demo
 - [x] 删除
 - [x] 批处理操作
 - [x] LINQ To EF
+
+## CodeFirstDemo
+
+EntityFramework Code First Demo
