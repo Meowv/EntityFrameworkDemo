@@ -16,7 +16,7 @@ namespace EntityFrameworkDemo.EntityFramework
         }
 
         [Key]
-        [StringLength(5)]
+        [StringLength(10)]
         public string CustomerID { get; set; }
 
         [Required]

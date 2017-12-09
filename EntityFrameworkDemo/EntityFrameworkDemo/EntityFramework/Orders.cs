@@ -17,7 +17,7 @@ namespace EntityFrameworkDemo.EntityFramework
         [Key]
         public int OrderID { get; set; }
 
-        [StringLength(5)]
+        [StringLength(10)]
         public string CustomerID { get; set; }
 
         public int? EmployeeID { get; set; }

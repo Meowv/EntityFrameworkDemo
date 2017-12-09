@@ -20,6 +20,7 @@ namespace EntityFrameworkDemo
             //Edit1();
             //Edit2();
             //Delete();
+            //BatcheAdd();
         }
 
         #region 新增
@@ -38,7 +39,7 @@ namespace EntityFrameworkDemo
                 };
 
                 //方法一
-                //db.Customers.Add(_Customers);
+                //db.Customers.Add(customers);
 
                 //方法二
                 DbEntityEntry<Customers> entity = db.Entry<Customers>(customers);
@@ -206,6 +207,32 @@ namespace EntityFrameworkDemo
                 db.SaveChanges();
 
                 Console.WriteLine("删除成功");
+            }
+        }
+        #endregion
+
+        #region 批处理
+        /// <summary>
+        /// 批处理，一次新增50条数据
+        /// </summary>
+        static void BatcheAdd()
+        {
+            using (NorthwindDbContext db = new NorthwindDbContext())
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    Customers customers = new Customers()
+                    {
+                        CustomerID = "MEOWV" + i,
+                        Address = "ShangHaiJiaDing",
+                        City = "ShangHai",
+                        Phone = "13477996338",
+                        CompanyName = "Gasgoo",
+                        ContactName = "qi" + i,
+                    };
+                    db.Customers.Add(customers);
+                }
+                db.SaveChanges();
             }
         }
         #endregion
