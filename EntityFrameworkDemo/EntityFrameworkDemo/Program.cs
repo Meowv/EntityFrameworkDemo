@@ -21,6 +21,7 @@ namespace EntityFrameworkDemo
             //Edit2();
             //Delete();
             //BatcheAdd();
+            //LinqToEF();
         }
 
         #region 新增
@@ -233,6 +234,57 @@ namespace EntityFrameworkDemo
                     db.Customers.Add(customers);
                 }
                 db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region LINQ To EF
+        static void LinqToEF()
+        {
+            using (NorthwindDbContext db = new NorthwindDbContext())
+            {
+                //1.简单查询
+                var result1 = from c in db.Customers select c;
+
+                //2.条件查询
+                var result2 = from c in db.Customers where c.City == "ShangHai" select c;
+                //lambda 表达式写法
+                var result3 = db.Customers.Where<Customers>(c => c.City == "ShangHai");
+
+                //3.排序分页
+                IQueryable<Customers> cust10 = (from c in db.Customers orderby c.CustomerID select c).Skip(0).Take(10);
+
+                //4.聚合 Average、Count、Max、Min、Sum
+                var maxPrice = db.Products.Average(p => p.UnitPrice);
+                Console.WriteLine(maxPrice.Value);
+
+                //5.连接
+                var query1 = from d in db.Order_Details
+                            join order in db.Orders
+                            on d.OrderID equals order.OrderID
+                            select new
+                            {
+                                OrderId = order.OrderID,
+                                ProductId = d.ProductID,
+                                UnitPrice = d.UnitPrice
+                            };
+                foreach (var q in query1)
+                {
+                    Console.WriteLine($"{q.OrderId},{q.ProductId},{q.UnitPrice}");
+                }
+
+                //6.分组查询
+                var query2 = from c in db.Categories
+                             join p in db.Products
+                             on c.CategoryID equals p.CategoryID
+                             group new { c, p } by new { c.CategoryName } into g
+                             select new
+                             {
+                                 g.Key.CategoryName,
+                                 SumPrice = (decimal?)g.Sum(pt => pt.p.UnitPrice),
+                                 Count = g.Select(x => x.c.CategoryID).Distinct().Count()
+                             };
+
             }
         }
         #endregion

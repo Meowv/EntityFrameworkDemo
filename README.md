@@ -11,3 +11,4 @@ EntityFramework Database First Demo
 - [x] 修改
 - [x] 删除
 - [x] 批处理操作
+- [x] LINQ To EF
