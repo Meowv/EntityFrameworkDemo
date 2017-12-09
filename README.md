@@ -10,4 +10,4 @@ EntityFramework Database First Demo
 - [x] 分页查询
 - [x] 修改
 - [x] 删除
-- [] ...
+- [x] 批处理操作
